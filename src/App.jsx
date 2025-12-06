@@ -1,6 +1,6 @@
-import Button from "./components/Button/Button";
 import Title from "./components/Title/Title";
 import Paragraph from "./components/Paragraph/Paragraph";
+import Search from "./components/Search/Search";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         Введите название фильма, сериала или мультфильма для поиска и добавления
         в избранное.
       </Paragraph>
-      <Button>Искать</Button>
+      <Search />
     </>
   );
 }
