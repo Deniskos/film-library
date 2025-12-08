@@ -3,20 +3,20 @@ import "./styles.css";
 const Menu = () => {
     return (
         <menu className="navigation">
-            <nav class="nav">
-                <ul class="nav-list">
-                    <li class="nav-item">
-                        <a href="/" class="nav-link">
+            <nav className="nav">
+                <ul className="nav-list">
+                    <li className="nav-item">
+                        <a href="/" className="nav-link">
                             Поиск фильмов
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/about" class="nav-link">
+                    <li className="nav-item">
+                        <a href="/about" className="nav-link">
                             Мои фильмы
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="/services" class="nav-link">
+                    <li className="nav-item">
+                        <a href="/services" className="nav-link">
                             Войти
                         </a>
                     </li>

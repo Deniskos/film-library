@@ -1,0 +1,15 @@
+.films {
+    margin-top: 40px;
+}
+
+.films__list {
+    display: grid;
+    /* 4 колонки одинаковой ширины */
+    grid-template-columns: repeat(4, 1fr);
+    /* 2 строки одинаковой высоты */
+    grid-template-rows: repeat(2, 1fr);
+    /* Отступы между элементами */
+    gap: clamp(10px, 2vw, 30px); /* Минимум 10px, максимум 30px */
+    list-style: none;
+    padding-left: 0;
+}
