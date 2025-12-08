@@ -1,3 +1,5 @@
+import React from "react";
+
 import FilmItem from "../FilmItem/FilmItem";
 
 import "./styles.css";
@@ -12,7 +14,9 @@ const FilmList = ({ films }) => {
         <div className="films">
             <ul className="films__list">
                 {films.map((film) => (
-                    <FilmItem film={film} />
+                    <React.Fragment key={`${film.names} ${film.poster}`}>
+                        <FilmItem film={film} />
+                    </React.Fragment>
                 ))}
             </ul>
         </div>
