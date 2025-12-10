@@ -1,0 +1,50 @@
+.film-item {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 282px;
+    height: 520px;
+    padding-bottom: 20px;
+    border-radius: 12px;
+    flex-direction: column;
+    background-color: #20283ecc;
+}
+
+.film-item__likes {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 4px 8px 4px 30px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0%;
+    color: rgba(255, 173, 73, 1);
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.65);
+    background-image: url("./star.svg");
+    background-repeat: no-repeat;
+    background-position: 10px;
+}
+
+.film-item__image-wrapper {
+    padding: 10px;
+}
+
+.film-item__film-name {
+    padding: 0 20px;
+}
+
+.film-item__favorit {
+    padding: 0 20px 0 50px;
+    color: rgba(123, 110, 246, 1);
+    background-image: url("./like.svg");
+    background-repeat: no-repeat;
+    background-position: 18px 0;
+}
+
+.film-item__favorit-added {
+    color: rgba(55, 216, 167, 1);
+    background-image: url("./Bookmark.svg");
+    background-repeat: no-repeat;
+}
