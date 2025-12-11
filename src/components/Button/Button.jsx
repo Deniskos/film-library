@@ -1,11 +1,11 @@
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const Button = ({ onClick, children }) => {
-  return (
-    <button className="button" onClick={onClick}>
-      {children}
-    </button>
-  );
+    return (
+        <button className={styles.button} onClick={onClick}>
+            {children}
+        </button>
+    );
 };
 
 export default Button;

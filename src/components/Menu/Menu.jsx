@@ -1,22 +1,22 @@
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const Menu = () => {
     return (
-        <menu className="navigation">
-            <nav className="nav">
-                <ul className="nav-list">
-                    <li className="nav-item">
-                        <a href="/" className="nav-link">
+        <menu className={styles.navigation}>
+            <nav className={styles.nav}>
+                <ul className={styles["nav - list"]}>
+                    <li className={styles["nav-item"]}>
+                        <a href="/" className={styles["nav-link"]}>
                             Поиск фильмов
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a href="/about" className="nav-link">
+                        <a href="/about" className={styles["nav-link"]}>
                             Мои фильмы
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a href="/services" className="nav-link">
+                        <a href="/services" className={styles["nav-link"]}>
                             Войти
                         </a>
                     </li>

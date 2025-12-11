@@ -2,7 +2,7 @@ import React from "react";
 
 import FilmItem from "../FilmItem/FilmItem";
 
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const FilmList = ({ films }) => {
     console.log(films.lenght);
@@ -11,8 +11,8 @@ const FilmList = ({ films }) => {
     }
 
     return (
-        <div className="films">
-            <ul className="films__list">
+        <div className={styles.films}>
+            <ul className={styles["films__list"]}>
                 {films.map((film) => (
                     <React.Fragment key={`${film.names} ${film.poster}`}>
                         <FilmItem film={film} />
