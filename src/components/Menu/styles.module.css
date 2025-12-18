@@ -7,7 +7,28 @@
     color: #a8aebf;
 }
 
+.nav-list a:visited {
+    color: #a8aebf;
+}
+
 .nav-item {
     list-style: none;
-    margin-right: 20px;
+    margin-right: 40px;
+}
+
+.nav-item__name a {
+    display: inline-block;
+    padding-right: 30px;
+    background-image: url(./public/user.svg);
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    color: #a8aebf;
+}
+
+.nav-link__login {
+    display: inline-block;
+    padding-right: 30px;
+    background-image: url(./public/Login.svg);
+    background-repeat: no-repeat;
+    background-position: 100% 0;
 }

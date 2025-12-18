@@ -11,6 +11,8 @@ const Search = () => {
         <div className={styles["root"]}>
             <div>{isTrue.toString()}</div>
             <Input
+                type="search"
+                name="search"
                 className={styles["search"]}
                 placeholder="Введите название"
                 iconName="search-normal.svg"

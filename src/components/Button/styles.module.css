@@ -1,17 +1,18 @@
 .button {
-  height: 64px;
-  padding: 8px 16px;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  font-family: Poppins, sans-serif;
-  border-radius: 12px;
-  border: 2px solid #7b6ef6;
-  background-color: #7b6ef6;
-  color: #fff;
-  transition: background-color 0.3s;
+    height: 64px;
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    font-family: Poppins, sans-serif;
+    border-radius: 12px;
+    border: 2px solid #7b6ef6;
+    background-color: #7b6ef6;
+    color: #fff;
+    transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 .button:hover {
-  background-color: #6a5de5;
+    background-color: #6a5de5;
 }

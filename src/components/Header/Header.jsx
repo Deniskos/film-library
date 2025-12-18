@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import Menu from "../Menu/Menu";
 
-const Header = () => {
+const Header = ({ ...props }) => {
     return (
         <header className={styles["header__root"]}>
             <div className={styles["header__logo"]}>
@@ -9,7 +9,7 @@ const Header = () => {
                     <img src="/logo.svg" />
                 </a>
             </div>
-            <Menu />
+            <Menu {...props} />
         </header>
     );
 };

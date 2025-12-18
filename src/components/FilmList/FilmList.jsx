@@ -5,7 +5,6 @@ import FilmItem from "../FilmItem/FilmItem";
 import styles from "./styles.module.css";
 
 const FilmList = ({ films }) => {
-    console.log(films.lenght);
     if (films.length < 1) {
         return null;
     }

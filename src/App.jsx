@@ -1,8 +1,14 @@
+import { useRef, useState } from "react";
+import useProfile from "./hooks/useProfile";
+
 import Title from "./components/Title/Title";
 import Paragraph from "./components/Paragraph/Paragraph";
 import Search from "./components/Search/Search";
 import Header from "./components/Header/Header";
 import FilmList from "./components/FilmList/FilmList";
+
+import Button from "./components/Button/Button";
+import Input from "./components/Input/Input";
 
 const filmsList = [
     {
@@ -56,9 +62,37 @@ const filmsList = [
 ];
 
 function App() {
+    const [name, setName] = useState("");
+    const [isLogined, setIsLogined] = useState(false);
+    const [loginProfile, exitProfile] = useProfile();
+    const loginRef = useRef(null);
+
+    const changeName = (e) => {
+        setName(e.target.value);
+    };
+
+    const login = () => {
+        if (!name) {
+            return null;
+        }
+        loginProfile(name);
+        setIsLogined(true);
+    };
+
+    const exitHandler = () => {
+        exitProfile(name);
+        setIsLogined(false);
+        setName("");
+    };
+
     return (
         <>
-            <Header />
+            <Header
+                loginRef={loginRef}
+                isLogined={isLogined}
+                name={name}
+                exitHandler={exitHandler}
+            />
             <div className="app">
                 <Title>Поиск</Title>
                 <Paragraph size="regular">
@@ -67,6 +101,22 @@ function App() {
                 </Paragraph>
                 <Search />
                 <FilmList films={filmsList} />
+                {!isLogined && (
+                    <div className="loginForm">
+                        <Title size="h2">Вход {isLogined}</Title>
+                        <Input
+                            ref={loginRef}
+                            type="text"
+                            value={name}
+                            onChange={changeName}
+                            name="auth"
+                            placeholder="Ваше имя"
+                        />
+                        <div>
+                            <Button onClick={login}>Войти в профиль</Button>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

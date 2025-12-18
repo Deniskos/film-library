@@ -1,23 +1,50 @@
+import cn from "classnames";
 import styles from "./styles.module.css";
 
-const Menu = () => {
+const Menu = ({ isLogined = false, name = "", exitHandler, loginRef }) => {
+    const clickHandler = (e) => {
+        e.preventDefault();
+        if (isLogined) {
+            exitHandler();
+        } else {
+            loginRef?.current.focus();
+        }
+    };
     return (
         <menu className={styles.navigation}>
             <nav className={styles.nav}>
-                <ul className={styles["nav - list"]}>
+                <ul className={styles["nav-list"]}>
                     <li className={styles["nav-item"]}>
                         <a href="/" className={styles["nav-link"]}>
                             Поиск фильмов
                         </a>
                     </li>
-                    <li className="nav-item">
+                    <li className={styles["nav-item"]}>
                         <a href="/about" className={styles["nav-link"]}>
                             Мои фильмы
                         </a>
                     </li>
-                    <li className="nav-item">
-                        <a href="/services" className={styles["nav-link"]}>
-                            Войти
+                    {isLogined && (
+                        <li
+                            className={cn(
+                                styles["nav-item"],
+                                styles["nav-item__name"]
+                            )}
+                        >
+                            <a href="/profile" className={styles["nav-link"]}>
+                                {name}
+                            </a>
+                        </li>
+                    )}
+                    <li className={styles["nav-item"]}>
+                        <a
+                            href="/services"
+                            onClick={clickHandler}
+                            className={cn(styles["nav-link"], {
+                                [styles["nav-link__login"]]: !isLogined,
+                            })}
+                        >
+                            {isLogined ? "Выйти" : "Войти"}
                         </a>
                     </li>
                 </ul>
