@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useProfile from "./hooks/useProfile";
 
 import Title from "./components/Title/Title";
@@ -64,8 +64,17 @@ const filmsList = [
 function App() {
     const [name, setName] = useState("");
     const [isLogined, setIsLogined] = useState(false);
-    const [loginProfile, exitProfile] = useProfile();
+    const [loginProfile, exitProfile, profiles] = useProfile();
     const loginRef = useRef(null);
+
+    useEffect(() => {
+        profiles.forEach((profile) => {
+            if (profile.isLogined) {
+                setIsLogined(true);
+                setName(profile.name);
+            }
+        });
+    }, [profiles]);
 
     const changeName = (e) => {
         setName(e.target.value);

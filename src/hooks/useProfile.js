@@ -40,7 +40,7 @@ const useProfile = () => {
         }
     };
 
-    return [loginProfile, exitProfile];
+    return [loginProfile, exitProfile, profiles];
 };
 
 export default useProfile;
