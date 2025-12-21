@@ -19,7 +19,6 @@ const useProfile = () => {
     const loginProfile = (name) => {
         // Проверяем, есть ли пользователь с таким именем
         const profileIndex = profiles.findIndex(profile => profile.name === name);
-        console.log(profileIndex);
         // Пользователя нет - добавляем нового
         if (profileIndex === -1) {
              const newProfile = { name, isLogined: true };

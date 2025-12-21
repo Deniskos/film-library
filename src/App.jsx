@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useProfile from "./hooks/useProfile";
 
 import Title from "./components/Title/Title";
@@ -9,6 +9,7 @@ import FilmList from "./components/FilmList/FilmList";
 
 import Button from "./components/Button/Button";
 import Input from "./components/Input/Input";
+import { UserContext } from "./context/UserContext";
 
 const filmsList = [
     {
@@ -62,8 +63,9 @@ const filmsList = [
 ];
 
 function App() {
-    const [name, setName] = useState("");
-    const [isLogined, setIsLogined] = useState(false);
+    const { currentUserName, setCurrentUserName, isLogined, setIsLogined } =
+        useContext(UserContext);
+    // const [isLogined, setIsLogined] = useState(false);
     const [loginProfile, exitProfile, profiles] = useProfile();
     const loginRef = useRef(null);
 
@@ -71,37 +73,33 @@ function App() {
         profiles.forEach((profile) => {
             if (profile.isLogined) {
                 setIsLogined(true);
-                setName(profile.name);
+                setCurrentUserName(profile.name);
             }
         });
     }, [profiles]);
 
     const changeName = (e) => {
-        setName(e.target.value);
+        console.log(e.target.value);
+        setCurrentUserName(e.target.value);
     };
 
     const login = () => {
-        if (!name) {
+        if (!currentUserName) {
             return null;
         }
-        loginProfile(name);
+        loginProfile(currentUserName);
         setIsLogined(true);
     };
 
     const exitHandler = () => {
-        exitProfile(name);
+        exitProfile(currentUserName);
         setIsLogined(false);
-        setName("");
+        setCurrentUserName("");
     };
 
     return (
         <>
-            <Header
-                loginRef={loginRef}
-                isLogined={isLogined}
-                name={name}
-                exitHandler={exitHandler}
-            />
+            <Header loginRef={loginRef} exitHandler={exitHandler} />
             <div className="app">
                 <Title>Поиск</Title>
                 <Paragraph size="regular">
@@ -112,11 +110,11 @@ function App() {
                 <FilmList films={filmsList} />
                 {!isLogined && (
                     <div className="loginForm">
-                        <Title size="h2">Вход {isLogined}</Title>
+                        <Title size="h2">Вход</Title>
                         <Input
                             ref={loginRef}
                             type="text"
-                            value={name}
+                            value={currentUserName}
                             onChange={changeName}
                             name="auth"
                             placeholder="Ваше имя"

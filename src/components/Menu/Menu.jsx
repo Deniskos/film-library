@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import cn from "classnames";
 import styles from "./styles.module.css";
+import { UserContext } from "../../context/UserContext";
 
-const Menu = ({ isLogined = false, name = "", exitHandler, loginRef }) => {
+const Menu = ({ exitHandler, loginRef }) => {
+    const { currentUserName, isLogined } = useContext(UserContext);
     const clickHandler = (e) => {
         e.preventDefault();
         if (isLogined) {
@@ -32,7 +35,7 @@ const Menu = ({ isLogined = false, name = "", exitHandler, loginRef }) => {
                             )}
                         >
                             <a href="/profile" className={styles["nav-link"]}>
-                                {name}
+                                {currentUserName}
                             </a>
                         </li>
                     )}
