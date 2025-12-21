@@ -65,21 +65,10 @@ const filmsList = [
 function App() {
     const { currentUserName, setCurrentUserName, isLogined, setIsLogined } =
         useContext(UserContext);
-    // const [isLogined, setIsLogined] = useState(false);
-    const [loginProfile, exitProfile, profiles] = useProfile();
+    const [loginProfile, exitProfile] = useProfile();
     const loginRef = useRef(null);
 
-    useEffect(() => {
-        profiles.forEach((profile) => {
-            if (profile.isLogined) {
-                setIsLogined(true);
-                setCurrentUserName(profile.name);
-            }
-        });
-    }, [profiles]);
-
     const changeName = (e) => {
-        console.log(e.target.value);
         setCurrentUserName(e.target.value);
     };
 

@@ -5,6 +5,8 @@ const useProfile = () => {
         return JSON.parse(localStorage.getItem("Профили")) || [];
     });
 
+    console.log("profiles:", profiles);
+
     const exitProfile = (name) => {        
         const newProfiles = profiles.map((profile) => {
             if (profile.name === name) {
