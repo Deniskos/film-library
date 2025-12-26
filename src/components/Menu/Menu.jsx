@@ -1,23 +1,53 @@
-import "./styles.css";
+import { useContext } from "react";
+import cn from "classnames";
+import styles from "./styles.module.css";
+import { UserContext } from "../../context/UserContext";
 
-const Menu = () => {
+const Menu = ({ exitHandler, loginRef }) => {
+    const { currentUserName, isLogined } = useContext(UserContext);
+    const clickHandler = (e) => {
+        e.preventDefault();
+        if (isLogined) {
+            exitHandler();
+        } else {
+            loginRef?.current.focus();
+        }
+    };
     return (
-        <menu className="navigation">
-            <nav className="nav">
-                <ul className="nav-list">
-                    <li className="nav-item">
-                        <a href="/" className="nav-link">
+        <menu className={styles.navigation}>
+            <nav className={styles.nav}>
+                <ul className={styles["nav-list"]}>
+                    <li className={styles["nav-item"]}>
+                        <a href="/" className={styles["nav-link"]}>
                             Поиск фильмов
                         </a>
                     </li>
-                    <li className="nav-item">
-                        <a href="/about" className="nav-link">
+                    <li className={styles["nav-item"]}>
+                        <a href="/about" className={styles["nav-link"]}>
                             Мои фильмы
                         </a>
                     </li>
-                    <li className="nav-item">
-                        <a href="/services" className="nav-link">
-                            Войти
+                    {isLogined && (
+                        <li
+                            className={cn(
+                                styles["nav-item"],
+                                styles["nav-item__name"]
+                            )}
+                        >
+                            <a href="/profile" className={styles["nav-link"]}>
+                                {currentUserName}
+                            </a>
+                        </li>
+                    )}
+                    <li className={styles["nav-item"]}>
+                        <a
+                            href="/services"
+                            onClick={clickHandler}
+                            className={cn(styles["nav-link"], {
+                                [styles["nav-link__login"]]: !isLogined,
+                            })}
+                        >
+                            {isLogined ? "Выйти" : "Войти"}
                         </a>
                     </li>
                 </ul>

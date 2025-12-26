@@ -1,14 +1,17 @@
-import "./styles.css";
+import cn from "classnames";
+import styles from "./styles.module.css";
 
-const Input = ({ placeholder, className = "", iconName }) => {
+const Input = ({ value, className = "", iconName, ...props }) => {
     return (
-        <div className="input-root">
+        <div className={styles["input-root"]}>
             <input
-                type="search"
-                className={`input ${className} ${iconName ? "whitchIcon" : ""}`}
-                placeholder={placeholder}
+                {...props}
+                value={value}
+                className={cn(styles.input, className, {
+                    [styles.withIcon]: iconName,
+                })}
             />
-            {iconName && <img className="input__icon" src={`/${iconName}`} />}
+            {iconName && <img className={styles.icon} src={`/${iconName}`} />}
         </div>
     );
 };

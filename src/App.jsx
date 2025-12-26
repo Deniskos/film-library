@@ -1,8 +1,15 @@
+import { useContext, useEffect, useRef, useState } from "react";
+import useProfile from "./hooks/useProfile";
+
 import Title from "./components/Title/Title";
 import Paragraph from "./components/Paragraph/Paragraph";
 import Search from "./components/Search/Search";
 import Header from "./components/Header/Header";
 import FilmList from "./components/FilmList/FilmList";
+
+import Button from "./components/Button/Button";
+import Input from "./components/Input/Input";
+import { UserContext } from "./context/UserContext";
 
 const filmsList = [
     {
@@ -56,9 +63,32 @@ const filmsList = [
 ];
 
 function App() {
+    const { currentUserName, setCurrentUserName, isLogined, setIsLogined } =
+        useContext(UserContext);
+    const [loginProfile, exitProfile] = useProfile();
+    const loginRef = useRef(null);
+
+    const changeName = (e) => {
+        setCurrentUserName(e.target.value);
+    };
+
+    const login = () => {
+        if (!currentUserName) {
+            return null;
+        }
+        loginProfile(currentUserName);
+        setIsLogined(true);
+    };
+
+    const exitHandler = () => {
+        exitProfile(currentUserName);
+        setIsLogined(false);
+        setCurrentUserName("");
+    };
+
     return (
         <>
-            <Header />
+            <Header loginRef={loginRef} exitHandler={exitHandler} />
             <div className="app">
                 <Title>Поиск</Title>
                 <Paragraph size="regular">
@@ -67,6 +97,22 @@ function App() {
                 </Paragraph>
                 <Search />
                 <FilmList films={filmsList} />
+                {!isLogined && (
+                    <div className="loginForm">
+                        <Title size="h2">Вход</Title>
+                        <Input
+                            ref={loginRef}
+                            type="text"
+                            value={currentUserName}
+                            onChange={changeName}
+                            name="auth"
+                            placeholder="Ваше имя"
+                        />
+                        <div>
+                            <Button onClick={login}>Войти в профиль</Button>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );

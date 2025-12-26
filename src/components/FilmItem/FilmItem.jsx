@@ -1,4 +1,5 @@
-import "./styles.css";
+import cn from "classnames";
+import styles from "./styles.module.css";
 
 const FilmItem = ({ film }) => {
     if (!film) {
@@ -6,17 +7,17 @@ const FilmItem = ({ film }) => {
     }
 
     return (
-        <li className="film-item">
-            <span className="film-item__likes">{film.likes}</span>
-            <div className="film-item__image-wrapper">
+        <li className={styles["film-item"]}>
+            <span className={styles["likes"]}>{film.likes}</span>
+            <div className={styles["image-wrapper"]}>
                 <img src={`./src/assets/images/${film.poster}`} alt="" />
             </div>
-            <h3 className="film-item__film-name">{film.name}</h3>
+            <h3 className={styles["film-name"]}>{film.name}</h3>
             <a
                 href=""
-                className={`film-item__favorit ${
-                    film.isFavorit ? "film-item__favorit-added" : ""
-                }`}
+                className={cn(styles.favorit, {
+                    [styles["favorit-added"]]: film.isFavorit,
+                })}
             >
                 {film.isFavorit ? "В избранном" : "В избранное"}
             </a>

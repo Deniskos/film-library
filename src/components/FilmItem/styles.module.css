@@ -10,7 +10,7 @@
     background-color: #20283ecc;
 }
 
-.film-item__likes {
+.likes {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -27,15 +27,15 @@
     background-position: 10px;
 }
 
-.film-item__image-wrapper {
+.image-wrapper {
     padding: 10px;
 }
 
-.film-item__film-name {
+.film-name {
     padding: 0 20px;
 }
 
-.film-item__favorit {
+.favorit {
     padding: 0 20px 0 50px;
     color: rgba(123, 110, 246, 1);
     background-image: url("./like.svg");
@@ -43,7 +43,7 @@
     background-position: 18px 0;
 }
 
-.film-item__favorit-added {
+.favorit-added {
     color: rgba(55, 216, 167, 1);
     background-image: url("./Bookmark.svg");
     background-repeat: no-repeat;
