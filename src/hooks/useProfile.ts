@@ -5,14 +5,16 @@ interface ProfileType {
         isLogined: boolean;
 }
 
-const useProfile = () => {
+const useProfile = (): [
+        loginProfile: (name: string) => void, 
+        exitProfile: (name: string) => void, 
+        profiles: ProfileType[],
+] => {
     const [profiles, setProfiles] = useState<ProfileType[] | [] >(() => {
         return JSON.parse(localStorage.getItem("Профили") || "") || [];
     });
 
-    console.log("profiles:", profiles);
-
-    const exitProfile = (name: string) => {        
+    const exitProfile = (name: string): void => {        
         const newProfiles = profiles.map((profile) => {
             if (profile.name === name) {
                 return {...profile, isLogined: false}
@@ -23,7 +25,7 @@ const useProfile = () => {
         setProfiles(newProfiles);
     };
 
-    const loginProfile = (name: string) => {
+    const loginProfile = (name: string): void => {
         // Проверяем, есть ли пользователь с таким именем
         const profileIndex = profiles.findIndex(profile => profile.name === name);
         // Пользователя нет - добавляем нового

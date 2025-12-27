@@ -65,7 +65,7 @@ const filmsList = [
 function App() {
     const { currentUserName, setCurrentUserName, isLogined, setIsLogined } =
         useContext(UserContext);
-    const [loginProfile, exitProfile] = useProfile();
+    const [loginProfile, exitProfile, profiles] = useProfile();
     const loginRef = useRef<HTMLInputElement>(null);
 
     const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
