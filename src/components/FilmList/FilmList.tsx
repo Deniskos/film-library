@@ -1,10 +1,16 @@
 import React from "react";
 
 import FilmItem from "../FilmItem/FilmItem";
+import {Film} from '../FilmItem/interface';
 
 import styles from "./styles.module.css";
 
-const FilmList = ({ films }) => {
+interface FilmListProps {
+  films: Film[];
+}
+
+const FilmList = ({films}: FilmListProps) => {
+        
     if (films.length < 1) {
         return null;
     }
@@ -13,7 +19,7 @@ const FilmList = ({ films }) => {
         <div className={styles.films}>
             <ul className={styles["films__list"]}>
                 {films.map((film) => (
-                    <React.Fragment key={`${film.names} ${film.poster}`}>
+                    <React.Fragment key={`${film.name} ${film.poster}`}>
                         <FilmItem film={film} />
                     </React.Fragment>
                 ))}

@@ -1,7 +1,13 @@
 import cn from "classnames";
 import styles from "./styles.module.css";
+import {Film } from './interface'
 
-const FilmItem = ({ film }) => {
+interface FilmItemProps {
+  film: Film;
+}
+
+const FilmItem = ({film}: FilmItemProps) => {
+
     if (!film) {
         return null;
     }

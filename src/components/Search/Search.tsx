@@ -6,7 +6,7 @@ import Input from "../Input/Input";
 import styles from "./styles.module.css";
 
 const Search = () => {
-    const [isTrue, setIsTrue] = useState(false);
+    const [isTrue, setIsTrue] = useState<boolean>(false);
     return (
         <div className={styles["root"]}>
             <div>{isTrue.toString()}</div>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState,  } from "react";
 import useProfile from "./hooks/useProfile";
 
 import Title from "./components/Title/Title";
@@ -66,9 +66,9 @@ function App() {
     const { currentUserName, setCurrentUserName, isLogined, setIsLogined } =
         useContext(UserContext);
     const [loginProfile, exitProfile] = useProfile();
-    const loginRef = useRef(null);
+    const loginRef = useRef<HTMLInputElement>(null);
 
-    const changeName = (e) => {
+    const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentUserName(e.target.value);
     };
 
