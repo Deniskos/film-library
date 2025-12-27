@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import React, { useContext, forwardRef, ReactNode } from "react";
 import cn from "classnames";
 import styles from "./styles.module.css";
 import { UserContext } from "../../context/UserContext";
+import {MenuProps} from './Menu.props';
 
-const Menu = ({ exitHandler, loginRef }) => {
+const Menu = ({ exitHandler, loginRef}: MenuProps) => {
     const { currentUserName, isLogined } = useContext(UserContext);
-    const clickHandler = (e) => {
-        e.preventDefault();
+    const clickHandler = (event: React.MouseEvent) => {
+        event.preventDefault();
         if (isLogined) {
             exitHandler();
         } else {
-            loginRef?.current.focus();
+            loginRef.current?.focus();
         }
     };
     return (
@@ -54,6 +55,6 @@ const Menu = ({ exitHandler, loginRef }) => {
             </nav>
         </menu>
     );
-};
+}
 
 export default Menu;

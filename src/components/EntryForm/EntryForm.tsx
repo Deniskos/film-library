@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import useProfile from "../../hooks/useProfile";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -7,10 +7,10 @@ import Title from "../Title/Title";
 import styles from "./styles.module.css";
 
 const EntryForm = () => {
-    const [name, setName] = useState("");
+    const [name, setName] = useState<string>("");
     const [addProfile, isLogined] = useProfile();
 
-    const changeName = (e) => {
+    const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
     };
 
