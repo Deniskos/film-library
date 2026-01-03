@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import cn from "classnames";
 import styles from "./styles.module.css";
 import { UserContext } from "../../context/UserContext";
+import {MenuProps} from './Menu.props';
+import { NavLink } from "react-router-dom";
 
-const Menu = ({ exitHandler, loginRef }) => {
+const Menu = ({ exitHandler, loginRef}: MenuProps) => {
     const { currentUserName, isLogined } = useContext(UserContext);
-    const clickHandler = (e) => {
-        e.preventDefault();
+    const clickHandler = (event: React.MouseEvent) => {
         if (isLogined) {
             exitHandler();
         } else {
-            loginRef?.current.focus();
+            loginRef.current?.focus();
         }
     };
     return (
@@ -18,14 +19,18 @@ const Menu = ({ exitHandler, loginRef }) => {
             <nav className={styles.nav}>
                 <ul className={styles["nav-list"]}>
                     <li className={styles["nav-item"]}>
-                        <a href="/" className={styles["nav-link"]}>
+                        <NavLink to="/" className={({isActive}) => cn(styles["nav-link"], {
+                                        [styles.active]: isActive
+                                })}>
                             Поиск фильмов
-                        </a>
+                        </NavLink>
                     </li>
                     <li className={styles["nav-item"]}>
-                        <a href="/about" className={styles["nav-link"]}>
+                        <NavLink to="/favorites" className={({isActive}) => cn(styles["nav-link"], {
+                                [styles.active]: isActive,
+                            })}>
                             Мои фильмы
-                        </a>
+                        </NavLink>
                     </li>
                     {isLogined && (
                         <li
@@ -34,26 +39,27 @@ const Menu = ({ exitHandler, loginRef }) => {
                                 styles["nav-item__name"]
                             )}
                         >
-                            <a href="/profile" className={styles["nav-link"]}>
-                                {currentUserName}
-                            </a>
+                            <NavLink className={({isActive}) => cn(styles["nav-link"], {
+                                        [styles.active]: isActive
+                                })} to={`/profile/${currentUserName}`}>{currentUserName}</NavLink>
                         </li>
                     )}
                     <li className={styles["nav-item"]}>
-                        <a
-                            href="/services"
+                        <NavLink 
+                            to="/login"
                             onClick={clickHandler}
-                            className={cn(styles["nav-link"], {
+                            className={({isActive}) => cn(styles["nav-link"], {
+                                [styles.active]: isActive,
                                 [styles["nav-link__login"]]: !isLogined,
                             })}
                         >
                             {isLogined ? "Выйти" : "Войти"}
-                        </a>
+                        </NavLink>
                     </li>
                 </ul>
             </nav>
         </menu>
     );
-};
+}
 
 export default Menu;

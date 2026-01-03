@@ -1,0 +1,84 @@
+.movie-root {
+	max-width: 1050px;
+	margin: 40px auto 0;
+	gap: 8px;
+}
+
+.text-wrapper {
+	border-radius: 24px;
+	padding: 40px;
+	background: rgba(32, 40, 62, 0.8);
+}
+.upper-title {
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+	color: rgba(190, 183, 251, 1);
+}
+
+.main {
+	display: flex;
+	margin: 80px 0 40px;
+	gap: 60px; /* Отступ между колонками */
+	justify-content: space-between;
+}
+
+.col {
+	flex: 1;
+}
+
+.description {
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 32px;
+}
+
+.text-description {
+	color: rgba(142, 149, 169, 1);
+}
+
+.movie-actions {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.movie-info {
+	margin-top: 25px;
+}
+
+.info-item {
+	margin-top: 25px;
+	display: block;
+}
+
+.info-title,
+.info-description {
+	display: block;
+	font-weight: 400;
+}
+
+.info-title {
+	font-size: 16px;
+	line-height: 24px;
+	color: rgba(118, 126, 148, 1);
+}
+
+.info-description {
+	margin-top: 5px;
+	font-size: 20px;
+	line-height: 32px;
+	color: rgba(195, 200, 212, 1);
+}
+
+.reviews-title {
+	margin: 0 0 15px 10px;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 24px;
+	color: rgba(118, 126, 148, 1);
+}
+
+.reviews h3 {
+	margin-bottom: 15px;
+}
