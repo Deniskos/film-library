@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useRef, RefObject } from "react";
 import { UserContext } from "./UserContext";
 import useProfile from "../hooks/useProfile";
 
@@ -10,9 +10,9 @@ export const UserProvider = ({ children }: UserProviderType) => {
     const [currentUserName, setCurrentUserName] = useState<string>("");
     const [isLogined, setIsLogined] = useState<boolean>(false);
     const [, , profiles]= useProfile();
+    const loginRef = useRef<HTMLInputElement>();
 
     useEffect(() => {
-
         // Проверяем, что profiles является массивом
         if (Array.isArray(profiles)) {
                  (profiles || []).forEach((profile) => {
@@ -32,6 +32,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 setCurrentUserName,
                 isLogined,
                 setIsLogined,
+                loginRef,
             }}
         >
             {children}

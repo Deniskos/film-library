@@ -1,34 +1,38 @@
-import cn from "classnames";
+import { Link } from "react-router-dom";
+import Favorite from "../Favorite/Favorite";
+import Rating from "../Rating/Rating";
+import { Film } from "./interface";
 import styles from "./styles.module.css";
-import {Film } from './interface'
 
 interface FilmItemProps {
-  film: Film;
+	film: Film;
 }
 
-const FilmItem = ({film}: FilmItemProps) => {
+const FilmItem = ({ film }: FilmItemProps) => {
+	if (!film) {
+		return null;
+	}
 
-    if (!film) {
-        return null;
-    }
-
-    return (
-        <li className={styles["film-item"]}>
-            <span className={styles["likes"]}>{film.likes}</span>
-            <div className={styles["image-wrapper"]}>
-                <img src={`./src/assets/images/${film.poster}`} alt="" />
-            </div>
-            <h3 className={styles["film-name"]}>{film.name}</h3>
-            <a
-                href=""
-                className={cn(styles.favorit, {
-                    [styles["favorit-added"]]: film.isFavorit,
-                })}
-            >
-                {film.isFavorit ? "В избранном" : "В избранное"}
-            </a>
-        </li>
-    );
+	return (
+		<li className={styles["film-item"]}>
+			<Link to={`/movie/33`}>
+				<Rating
+					position="absolute"
+					rating={film.likes}
+				/>
+				<div className={styles["image-wrapper"]}>
+					<img
+						src={`./src/assets/images/${film.poster}`}
+						alt=""
+					/>
+				</div>
+				<h3 className={styles["film-name"]}>
+					{film.name}
+				</h3>
+			</Link>
+			<Favorite isFavorit={film.isFavorit} />
+		</li>
+	);
 };
 
 export default FilmItem;
