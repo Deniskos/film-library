@@ -1,0 +1,13 @@
+.favorit {
+	padding: 0 20px 0 50px;
+	color: rgba(123, 110, 246, 1);
+	background-image: url("./like.svg");
+	background-repeat: no-repeat;
+	background-position: 18px 0;
+}
+
+.favorit-added {
+	color: rgba(55, 216, 167, 1);
+	background-image: url("./Bookmark.svg");
+	background-repeat: no-repeat;
+}

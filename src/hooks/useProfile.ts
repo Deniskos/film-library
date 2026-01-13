@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const useProfile = () => {
-    const [profiles, setProfiles] = useState(() => {
-        return JSON.parse(localStorage.getItem("Профили")) || [];
+interface ProfileType {
+        name: string; 
+        isLogined: boolean;
+}
+
+const useProfile = (): [
+        loginProfile: (name: string) => void, 
+        exitProfile: (name: string) => void, 
+        profiles: ProfileType[],
+] => {
+    const [profiles, setProfiles] = useState<ProfileType[] | [] >(() => {
+        return JSON.parse(localStorage.getItem("Профили") || "") || [];
     });
 
-    console.log("profiles:", profiles);
-
-    const exitProfile = (name) => {        
+    const exitProfile = (name: string): void => {        
         const newProfiles = profiles.map((profile) => {
             if (profile.name === name) {
                 return {...profile, isLogined: false}
@@ -18,7 +25,7 @@ const useProfile = () => {
         setProfiles(newProfiles);
     };
 
-    const loginProfile = (name) => {
+    const loginProfile = (name: string): void => {
         // Проверяем, есть ли пользователь с таким именем
         const profileIndex = profiles.findIndex(profile => profile.name === name);
         // Пользователя нет - добавляем нового
