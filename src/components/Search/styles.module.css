@@ -1,3 +1,13 @@
+.search-root {
+	width: 100%;
+}
+
 .search {
-    margin-right: 10px;
+	margin-right: 10px;
+}
+
+.error {
+	color: #ff3333;
+	margin-top: 8px;
+	font-size: 14px;
 }

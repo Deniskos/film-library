@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Favorite from "../Favorite/Favorite";
-import Rating from "../Rating/Rating";
 import { Film } from "./interface";
 import styles from "./styles.module.css";
 
@@ -16,18 +15,15 @@ const FilmItem = ({ film }: FilmItemProps) => {
 	return (
 		<li className={styles["film-item"]}>
 			<Link to={`/movie/33`}>
-				<Rating
+				{/* <Rating
 					position="absolute"
 					rating={film.likes}
-				/>
+				/> */}
 				<div className={styles["image-wrapper"]}>
-					<img
-						src={`./src/assets/images/${film.poster}`}
-						alt=""
-					/>
+					<img src={`${film.poster}`} alt="" />
 				</div>
 				<h3 className={styles["film-name"]}>
-					{film.name}
+					{film.title}
 				</h3>
 			</Link>
 			<Favorite isFavorit={film.isFavorit} />

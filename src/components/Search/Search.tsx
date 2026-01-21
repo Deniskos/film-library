@@ -1,25 +1,105 @@
-import { useState } from "react";
-
+import axios, { AxiosError } from "axios";
+import { Film } from "../../components/FilmItem/interface";
+import { serializeFilmsSafe } from "../../helpers/serializeFilmsSafe";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 
+import { useState } from "react";
+import NotFound from "../NotFound/NotFound";
 import styles from "./styles.module.css";
 
-const Search = () => {
-    const [isTrue, setIsTrue] = useState<boolean>(false);
-    return (
-        <div className={styles["root"]}>
-            <div>{isTrue.toString()}</div>
-            <Input
-                type="search"
-                name="search"
-                className={styles["search"]}
-                placeholder="Введите название"
-                iconName="search-normal.svg"
-            />
-            <Button onClick={() => setIsTrue((prev) => !prev)}>Искать</Button>
-        </div>
-    );
+interface SearchProps {
+	setFilmList: (films: Film[] | []) => void;
+}
+
+const MOVIE_NOT_FOUND = "Movie not found!";
+
+const Search = ({ setFilmList }: SearchProps) => {
+	const [searchValue, setSearchValue] = useState<string>("");
+	const [error, setError] = useState<string>("");
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const apiKey = import.meta.env.VITE_OMDB_API_KEY;
+	const isNotFound = error === MOVIE_NOT_FOUND;
+
+	async function getFilms() {
+		// Валидация ввода
+		if (!searchValue.trim()) {
+			setError("Введите название фильма");
+			return;
+		}
+
+		if (searchValue.trim().length < 3) {
+			setError("Введите минимум 3 символа");
+			return;
+		}
+
+		setIsLoading(true);
+		setError("");
+		try {
+			const response = await axios.get(
+				`https://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}&plot=full`,
+			);
+			if (response.data?.Response === "True") {
+				setFilmList(serializeFilmsSafe(response.data));
+			} else {
+				setFilmList([]);
+				setError(response.data.Error);
+			}
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				console.error("Ошибка API:", error.message);
+				setError(
+					"Ошибка сети. Проверьте подключение к интернету.",
+				);
+			} else {
+				setError("Произошла неизвестная ошибка");
+			}
+			setFilmList([]);
+		} finally {
+			setIsLoading(false);
+		}
+	}
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		// Если это обычный печатный символ (длина = 1)
+		if (e.key.length === 1) {
+			// Проверяем, соответствует ли он нашим правилам
+			// Теперь разрешаем: латинские буквы, пробел и цифры 0-9
+			const allowedRegex = /^[a-zA-Z0-9\s]$/;
+			if (!allowedRegex.test(e.key)) {
+				e.preventDefault();
+			}
+		}
+		// Все остальные клавиши (Backspace, Delete, стрелки и т.д.) разрешены
+	};
+
+	return (
+		<div className={styles["search-root"]}>
+			<Input
+				value={searchValue}
+				onChange={(
+					e: React.ChangeEvent<HTMLInputElement>,
+				) => setSearchValue(e.target.value)}
+				type="search"
+				name="search"
+				className={styles["search"]}
+				placeholder="Введите название"
+				iconName="search-normal.svg"
+				disabled={isLoading}
+				onKeyDown={handleKeyDown}
+			/>
+			<Button
+				onClick={getFilms}
+				disabled={isLoading || !searchValue.trim()}
+			>
+				{isLoading ? "Поиск..." : "Искать"}
+			</Button>
+			{error && error !== MOVIE_NOT_FOUND && (
+				<div className={styles.error}>{error}</div>
+			)}
+			{isNotFound && <NotFound />}
+		</div>
+	);
 };
 
 export default Search;
