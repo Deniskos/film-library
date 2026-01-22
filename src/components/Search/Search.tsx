@@ -6,6 +6,9 @@ import Input from "../Input/Input";
 
 import { useState } from "react";
 import NotFound from "../NotFound/NotFound";
+
+import { API_KEY, API_URL } from "../../constants";
+
 import styles from "./styles.module.css";
 
 interface SearchProps {
@@ -18,7 +21,6 @@ const Search = ({ setFilmList }: SearchProps) => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const apiKey = import.meta.env.VITE_OMDB_API_KEY;
 	const isNotFound = error === MOVIE_NOT_FOUND;
 
 	async function getFilms() {
@@ -37,7 +39,7 @@ const Search = ({ setFilmList }: SearchProps) => {
 		setError("");
 		try {
 			const response = await axios.get(
-				`https://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}&plot=full`,
+				`${API_URL}/?apikey=${API_KEY}&s=${searchValue}&plot=full`,
 			);
 			if (response.data?.Response === "True") {
 				setFilmList(serializeFilmsSafe(response.data));
