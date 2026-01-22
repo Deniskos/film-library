@@ -1,8 +1,6 @@
-import axios from "axios";
-import { StrictMode } from "react";
+import { StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { API_KEY, API_URL } from "./constants.js";
 import { UserProvider } from "./context/UserProvider.js";
 import "./index.css";
 import { Layout } from "./layout/layout";
@@ -11,6 +9,7 @@ import { Login } from "./pages/Login/Login";
 import { Main } from "./pages/Main/Main";
 import { Movie } from "./pages/Movie/Movie";
 import { Profile } from "./pages/Profile/Profile";
+import { getFilm } from "./services/movieApi.js";
 // Получаем элемент
 const rootElement: HTMLElement | null = document.getElementById("root");
 
@@ -22,19 +21,6 @@ if (rootElement === null) {
 }
 // Создаем корень
 const root = createRoot(rootElement);
-
-export async function getFilm({ params }) {
-	try {
-		const response = await axios.get(
-			`${API_URL}/?apikey=${API_KEY}&i=${params.id}`,
-		);
-
-		console.log("Успешный ответ:", response.data);
-		return response.data;
-	} catch (error) {
-		console.log(error);
-	}
-}
 
 const router = createBrowserRouter([
 	{
@@ -55,7 +41,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/movie/:id",
-				element: <Movie />,
+				element: (
+					<Suspense fallback={<>Загрузка...</>}>
+						<Movie />
+					</Suspense>
+				),
 				loader: getFilm,
 			},
 			{

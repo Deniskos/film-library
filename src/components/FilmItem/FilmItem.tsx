@@ -26,7 +26,7 @@ const FilmItem = ({ film }: FilmItemProps) => {
 					{film.title}
 				</h3>
 			</Link>
-			<Favorite isFavorit={film.isFavorit} />
+			<Favorite isFavorite={film.isFavorit} />
 		</li>
 	);
 };

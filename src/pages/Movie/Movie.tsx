@@ -41,20 +41,23 @@ export const Movie = () => {
 
 	return (
 		<div className={styles["movie-root"]}>
-			<div className={styles["text-wrapper"]}>
+			<header className={styles["text-wrapper"]}>
 				<p className={styles["upper-title"]}>
 					Поиск фильмов
 				</p>
 				<Title size="h2">{filmData.Title}</Title>
-			</div>
-			<div className={styles["main"]}>
+			</header>
+			<main className={styles["main"]}>
 				<div
 					className={cn(
 						styles["col"],
 						styles["poster"],
 					)}
 				>
-					<img src={filmData.Poster} />
+					<img
+						src={filmData.Poster}
+						alt={`Постер фильма ${filmData.Title}`}
+					/>
 				</div>
 				<div
 					className={cn(
@@ -83,45 +86,48 @@ export const Movie = () => {
 								filmData.imdbRating
 							}
 						/>
-						<Favorite isFavorit={false} />
+						<Favorite isFavorite={false} />
 					</div>
 
 					<ul className={styles["movie-info"]}>
-						{movieInfo.map((movie) => (
-							<li
-								className={
-									styles[
-										"info-item"
-									]
-								}
-							>
-								<span
+						{movieInfo.map(
+							(movie, index) => (
+								<li
+									key={`${movie.title}-${index}`}
 									className={
 										styles[
-											"info-title"
+											"info-item"
 										]
 									}
 								>
-									{
-										movie.title
-									}
-								</span>
-								<span
-									className={
-										styles[
-											"info-description"
-										]
-									}
-								>
-									{
-										movie.desc
-									}
-								</span>
-							</li>
-						))}
+									<span
+										className={
+											styles[
+												"info-title"
+											]
+										}
+									>
+										{
+											movie.title
+										}
+									</span>
+									<span
+										className={
+											styles[
+												"info-description"
+											]
+										}
+									>
+										{
+											movie.desc
+										}
+									</span>
+								</li>
+							),
+						)}
 					</ul>
 				</div>
-			</div>
+			</main>
 
 			{filmData.Awards && (
 				<section className={styles["awards"]}>
