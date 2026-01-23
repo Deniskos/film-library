@@ -19,10 +19,8 @@ const FilmList = ({ films }: FilmListProps) => {
 	return (
 		<div className={styles.films}>
 			<ul className={styles["films__list"]}>
-				{films.map((film) => (
-					<React.Fragment
-						key={`${film.title} ${film.poster}`}
-					>
+				{films.map(film => (
+					<React.Fragment key={`${film.title} ${film.poster}`}>
 						<FilmItem film={film} />
 					</React.Fragment>
 				))}

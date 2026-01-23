@@ -1,5 +1,7 @@
 import axios, { AxiosError } from "axios";
+import { useContext } from "react";
 import { Film } from "../../components/FilmItem/interface";
+import { UserContext } from "../../context/UserContext";
 import { serializeFilmsSafe } from "../../helpers/serializeFilmsSafe";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -9,6 +11,7 @@ import NotFound from "../NotFound/NotFound";
 
 import { API_KEY, API_URL } from "../../constants";
 
+import { useNavigate } from "react-router";
 import styles from "./styles.module.css";
 
 interface SearchProps {
@@ -21,11 +24,16 @@ const Search = ({ setFilmList }: SearchProps) => {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const { isLogined } = useContext(UserContext);
 	const isNotFound = error === MOVIE_NOT_FOUND;
+	const navigate = useNavigate();
 
 	async function getFilms() {
-		// Валидация ввода
+		if (!isLogined) {
+			navigate("/login");
+		}
 		if (!searchValue.trim()) {
+			// Валидация ввода
 			setError("Введите название фильма");
 			return;
 		}
@@ -38,9 +46,7 @@ const Search = ({ setFilmList }: SearchProps) => {
 		setIsLoading(true);
 		setError("");
 		try {
-			const response = await axios.get(
-				`${API_URL}/?apikey=${API_KEY}&s=${searchValue}&plot=full`,
-			);
+			const response = await axios.get(`${API_URL}/?apikey=${API_KEY}&s=${searchValue}&plot=full`);
 			if (response.data?.Response === "True") {
 				setFilmList(serializeFilmsSafe(response.data));
 			} else {
@@ -50,9 +56,7 @@ const Search = ({ setFilmList }: SearchProps) => {
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				console.error("Ошибка API:", error.message);
-				setError(
-					"Ошибка сети. Проверьте подключение к интернету.",
-				);
+				setError("Ошибка сети. Проверьте подключение к интернету.");
 			} else {
 				setError("Произошла неизвестная ошибка");
 			}
@@ -79,9 +83,7 @@ const Search = ({ setFilmList }: SearchProps) => {
 		<div className={styles["search-root"]}>
 			<Input
 				value={searchValue}
-				onChange={(
-					e: React.ChangeEvent<HTMLInputElement>,
-				) => setSearchValue(e.target.value)}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
 				type="search"
 				name="search"
 				className={styles["search"]}
@@ -90,15 +92,10 @@ const Search = ({ setFilmList }: SearchProps) => {
 				disabled={isLoading}
 				onKeyDown={handleKeyDown}
 			/>
-			<Button
-				onClick={getFilms}
-				disabled={isLoading || !searchValue.trim()}
-			>
+			<Button onClick={getFilms} disabled={isLoading || !searchValue.trim()}>
 				{isLoading ? "Поиск..." : "Искать"}
 			</Button>
-			{error && error !== MOVIE_NOT_FOUND && (
-				<div className={styles.error}>{error}</div>
-			)}
+			{error && error !== MOVIE_NOT_FOUND && <div className={styles.error}>{error}</div>}
 			{isNotFound && <NotFound />}
 		</div>
 	);

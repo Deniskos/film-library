@@ -64,11 +64,7 @@ export const Main = () => {
 		<div className={styles["main-page"]}>
 			<div className={styles["search-head"]}>
 				<Title>Поиск</Title>
-				<Paragraph size="regular">
-					Введите название фильма, сериала или
-					мультфильма для поиска и добавления в
-					избранное.
-				</Paragraph>
+				<Paragraph size="regular">Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.</Paragraph>
 			</div>
 			<Search setFilmList={setFilmList} />
 			<FilmList films={filmsList} />

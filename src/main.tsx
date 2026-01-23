@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProvider } from "./context/UserProvider.js";
+import { RequiredAuth } from "./helpers/RequiredAuth.js";
 import "./index.css";
 import { Layout } from "./layout/layout";
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage.js";
@@ -16,9 +17,7 @@ const rootElement: HTMLElement | null = document.getElementById("root");
 
 // Проверяем, что элемент существует
 if (rootElement === null) {
-	throw new Error(
-		'Root element not found. Make sure you have a div with id="root" in your index.html',
-	);
+	throw new Error('Root element not found. Make sure you have a div with id="root" in your index.html');
 }
 // Создаем корень
 const root = createRoot(rootElement);
@@ -38,7 +37,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/profile/:name",
-				element: <Profile />,
+				element: (
+					<RequiredAuth>
+						<Profile />
+					</RequiredAuth>
+				),
 			},
 			{
 				path: "/movie/:id",
@@ -48,7 +51,11 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/favorites",
-				element: <Favorites />,
+				element: (
+					<RequiredAuth>
+						<Favorites />
+					</RequiredAuth>
+				),
 			},
 		],
 	},
@@ -60,5 +67,5 @@ root.render(
 		<UserProvider>
 			<RouterProvider router={router} />
 		</UserProvider>
-	</StrictMode>,
+	</StrictMode>
 );

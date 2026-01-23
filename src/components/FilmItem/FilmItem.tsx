@@ -22,9 +22,7 @@ const FilmItem = ({ film }: FilmItemProps) => {
 				<div className={styles["image-wrapper"]}>
 					<img src={`${film.poster}`} alt="" />
 				</div>
-				<h3 className={styles["film-name"]}>
-					{film.title}
-				</h3>
+				<h3 className={styles["film-name"]}>{film.title}</h3>
 			</Link>
 			<Favorite isFavorite={film.isFavorit} />
 		</li>

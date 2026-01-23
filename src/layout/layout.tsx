@@ -9,13 +9,7 @@ import styles from "./styles.module.css";
 export const Layout = () => {
 	const [loginProfile, exitProfile, profiles] = useProfile();
 
-	const {
-		currentUserName,
-		setCurrentUserName,
-		isLogined,
-		setIsLogined,
-		loginRef,
-	} = useContext(UserContext);
+	const { currentUserName, setCurrentUserName, isLogined, setIsLogined, loginRef } = useContext(UserContext);
 
 	const exitHandler = () => {
 		exitProfile(currentUserName);
