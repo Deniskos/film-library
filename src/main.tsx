@@ -17,7 +17,9 @@ const rootElement: HTMLElement | null = document.getElementById("root");
 
 // Проверяем, что элемент существует
 if (rootElement === null) {
-	throw new Error('Root element not found. Make sure you have a div with id="root" in your index.html');
+	throw new Error(
+		'Root element not found. Make sure you have a div with id="root" in your index.html',
+	);
 }
 // Создаем корень
 const root = createRoot(rootElement);
@@ -29,7 +31,11 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <Main />,
+				element: (
+					<RequiredAuth>
+						<Main />
+					</RequiredAuth>
+				),
 			},
 			{
 				path: "/login",
@@ -47,7 +53,11 @@ const router = createBrowserRouter([
 				path: "/movie/:id",
 				element: <Movie />,
 				loader: getFilm,
-				errorElement: <ErrorPage />,
+				errorElement: (
+					<RequiredAuth>
+						<ErrorPage />
+					</RequiredAuth>
+				),
 			},
 			{
 				path: "/favorites",
@@ -67,5 +77,5 @@ root.render(
 		<UserProvider>
 			<RouterProvider router={router} />
 		</UserProvider>
-	</StrictMode>
+	</StrictMode>,
 );
