@@ -6,7 +6,7 @@ export async function getFilm({ params }: LoaderFunctionArgs) {
 	const { id } = params;
 
 	if (!id || typeof id !== "string") {
-		// 4. Бросаем Response для правильной обработки ошибок React Router
+		// Бросаем Response для правильной обработки ошибок React Router
 		throw new Response("Movie ID is required", { status: 400 });
 	}
 
@@ -15,18 +15,13 @@ export async function getFilm({ params }: LoaderFunctionArgs) {
 			`${API_URL}/?apikey=${API_KEY}&i=${id}`,
 		);
 
-		if (response.data.Response === "False") {
-			throw new Response(
-				response.data.Error || "Movie not found",
-				{
-					status: 404,
-				},
-			);
+		if (response?.data?.Response === 'False') {
+			throw new Response("Incorrect IMDb ID", { status: 400 });
 		}
-
-		console.log("Успешный ответ:", response.data);
+		 
 		return response.data;
-	} catch (error) {
+
+	} catch (error) {		
 		if (error instanceof Response) {
 			throw error;
 		}

@@ -1,0 +1,9 @@
+.error-page {
+	font-size: 64px;
+}
+
+.actions {
+	& button {
+		margin-right: 30px;
+	}
+}

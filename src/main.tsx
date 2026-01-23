@@ -1,9 +1,10 @@
-import { StrictMode, Suspense } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProvider } from "./context/UserProvider.js";
 import "./index.css";
 import { Layout } from "./layout/layout";
+import { ErrorPage } from "./pages/ErrorPage/ErrorPage.js";
 import { Favorites } from "./pages/Favorites/Favorites";
 import { Login } from "./pages/Login/Login";
 import { Main } from "./pages/Main/Main";
@@ -41,12 +42,9 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/movie/:id",
-				element: (
-					<Suspense fallback={<>Загрузка...</>}>
-						<Movie />
-					</Suspense>
-				),
+				element: <Movie />,
 				loader: getFilm,
+				errorElement: <ErrorPage />,
 			},
 			{
 				path: "/favorites",
