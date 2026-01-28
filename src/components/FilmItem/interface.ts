@@ -1,6 +1,8 @@
 export interface Film {
-        name: string;
-        poster: string;
-        likes: number;
-        isFavorit: boolean;
+    poster: string;
+    title: string;
+    type: string;
+    year: string;
+    imdbID: string;
+    isFavorit: boolean;
 }

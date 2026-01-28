@@ -3,7 +3,7 @@ import styles from "./styles.module.css";
 
 interface RatingProps {
 	position: "absolute" | "static";
-	rating: number;
+	rating: string;
 }
 
 const Rating = ({ rating, position = "static" }: RatingProps) => {
