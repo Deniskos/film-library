@@ -1,32 +1,15 @@
-import { useEffect, useState } from "react";
-
-interface ProfileType {
-	name: string;
-	isLogined: boolean;
-}
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext";
 
 const useProfile = (): [
 	loginProfile: (name: string) => void,
 	exitProfile: (name: string) => void,
-	profiles: ProfileType[],
 ] => {
-	const [profiles, setProfiles] = useState<ProfileType[] | []>(() => {
-		try {
-			const stored = localStorage.getItem("Профили");
-			if (stored) {
-				return JSON.parse(stored);
-			}
-			return [];
-		} catch (error) {
-			console.error(
-				"Ошибка при чтении профилей из localStorage:",
-				error,
-			);
-			return [];
-		}
-	});
+	const { profiles, setProfiles } = useContext(UserContext);
 
 	const exitProfile = (name: string): void => {
+		console.log("Выход из профиля: ", name);
+		console.log("Текущее состояние профилей:", profiles);
 		const newProfiles = profiles.map((profile) => {
 			if (profile.name === name) {
 				return { ...profile, isLogined: false };
@@ -38,6 +21,8 @@ const useProfile = (): [
 	};
 
 	const loginProfile = (name: string): void => {
+		console.log("Вход в профиль: ", name);
+		console.log("Текущее состояние профилей:", profiles);
 		// Проверяем, есть ли пользователь с таким именем
 		const profileIndex = profiles.findIndex(
 			(profile) => profile.name === name,
@@ -52,6 +37,10 @@ const useProfile = (): [
 						...profiles,
 						newProfile,
 					]),
+				);
+				console.log(
+					"Добавление нового профиля:",
+					newProfile,
 				);
 				setProfiles([...profiles, newProfile]);
 			} catch (e) {
@@ -68,6 +57,10 @@ const useProfile = (): [
 					"Профили",
 					JSON.stringify(newProfiles),
 				);
+				console.log(
+					"Изменение существующего профиля:",
+					newProfiles,
+				);
 				setProfiles(newProfiles);
 			} catch (e) {
 				console.error(e);
@@ -75,7 +68,7 @@ const useProfile = (): [
 		}
 	};
 
-	return [loginProfile, exitProfile, profiles];
+	return [loginProfile, exitProfile];
 };
 
 export default useProfile;

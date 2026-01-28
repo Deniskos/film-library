@@ -1,6 +1,9 @@
-import { createContext, Dispatch, SetStateAction, RefObject } from "react";
+import { createContext, Dispatch, RefObject, SetStateAction } from "react";
+import { ProfileType } from "../interfaces";
 
 export interface UserContextType {
+	profiles: ProfileType[] | [];
+	setProfiles: React.Dispatch<SetStateAction<ProfileType[]>>;
 	currentUserName: string;
 	setCurrentUserName: Dispatch<SetStateAction<string>>;
 	isLogined: boolean;
@@ -9,6 +12,8 @@ export interface UserContextType {
 }
 
 const defaultContextValue: UserContextType = {
+	profiles: [],
+	setProfiles: () => {},
 	currentUserName: "",
 	setCurrentUserName: () => {},
 	isLogined: false,
