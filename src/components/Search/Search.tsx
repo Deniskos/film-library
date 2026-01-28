@@ -46,7 +46,9 @@ const Search = ({ setFilmList }: SearchProps) => {
 		setIsLoading(true);
 		setError("");
 		try {
-			const response = await axios.get(`${API_URL}/?apikey=${API_KEY}&s=${searchValue}&plot=full`);
+			const response = await axios.get(
+				`${API_URL}/?apikey=${API_KEY}&s=${searchValue}&plot=full`,
+			);
 			if (response.data?.Response === "True") {
 				setFilmList(serializeFilmsSafe(response.data));
 			} else {
@@ -56,7 +58,9 @@ const Search = ({ setFilmList }: SearchProps) => {
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				console.error("Ошибка API:", error.message);
-				setError("Ошибка сети. Проверьте подключение к интернету.");
+				setError(
+					"Ошибка сети. Проверьте подключение к интернету.",
+				);
 			} else {
 				setError("Произошла неизвестная ошибка");
 			}
@@ -83,19 +87,26 @@ const Search = ({ setFilmList }: SearchProps) => {
 		<div className={styles["search-root"]}>
 			<Input
 				value={searchValue}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
+				onChange={(
+					e: React.ChangeEvent<HTMLInputElement>,
+				) => setSearchValue(e.target.value)}
 				type="search"
 				name="search"
 				className={styles["search"]}
-				placeholder="Введите название"
+				placeholder="Введите название латинскими буквами"
 				iconName="search-normal.svg"
 				disabled={isLoading}
 				onKeyDown={handleKeyDown}
 			/>
-			<Button onClick={getFilms} disabled={isLoading || !searchValue.trim()}>
+			<Button
+				onClick={getFilms}
+				disabled={isLoading || !searchValue.trim()}
+			>
 				{isLoading ? "Поиск..." : "Искать"}
 			</Button>
-			{error && error !== MOVIE_NOT_FOUND && <div className={styles.error}>{error}</div>}
+			{error && error !== MOVIE_NOT_FOUND && (
+				<div className={styles.error}>{error}</div>
+			)}
 			{isNotFound && <NotFound />}
 		</div>
 	);
